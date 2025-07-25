@@ -1,0 +1,277 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 19, 2022 at 01:39 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.5
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `caretech`
+DROP DATABASE IF EXISTS `caretech`;
+CREATE DATABASE `caretech`;
+USE `caretech`;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `aemail` varchar(255) NOT NULL,
+  `apassword` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`aemail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`aemail`, `apassword`) VALUES
+('admin@gmail.com', '123');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appointment`
+--
+
+DROP TABLE IF EXISTS `appointment`;
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `appoid` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(10) DEFAULT NULL,
+  `apponum` int(3) DEFAULT NULL,
+  `scheduleid` int(10) DEFAULT NULL,
+  `appodate` date DEFAULT NULL,
+  PRIMARY KEY (`appoid`),
+  KEY `pid` (`pid`),
+  KEY `scheduleid` (`scheduleid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`appoid`, `pid`, `apponum`, `scheduleid`, `appodate`) VALUES
+(1, 1, 1, 1, '2022-06-03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doctor`
+--
+
+DROP TABLE IF EXISTS `doctor`;
+CREATE TABLE IF NOT EXISTS `doctor` (
+  `docid` int(11) NOT NULL AUTO_INCREMENT,
+  `docemail` varchar(255) DEFAULT NULL,
+  `docname` varchar(255) DEFAULT NULL,
+  `docpassword` varchar(255) DEFAULT NULL,
+  `docnic` varchar(15) DEFAULT NULL,
+  `doctel` varchar(15) DEFAULT NULL,
+  `specialties` int(2) DEFAULT NULL,
+  PRIMARY KEY (`docid`),
+  KEY `specialties` (`specialties`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `doctor`
+--
+
+INSERT INTO `doctor` (`docid`, `docemail`, `docname`, `docpassword`, `docnic`, `doctel`, `specialties`) VALUES
+(1, 'doctor1@gmail.com', 'Dr. John Doe', 'pass123', '123456789V', '0111234567', 1),
+(2, 'doctor2@gmail.com', 'Dr. Jane Smith', 'pass234', '987654321V', '0112233445', 2),
+(3, 'doctor3@gmail.com', 'Dr. Emily Brown', 'pass345', '456789123V', '0113344556', 3),
+(4, 'doctor4@gmail.com', 'Dr. Michael Johnson', 'pass456', '789123456V', '0114455667', 1),
+(5, 'doctor5@gmail.com', 'Dr. Sarah Wilson', 'pass567', '321654987V', '0115566778', 2),
+(6, 'doctor6@gmail.com', 'Dr. David Martinez', 'pass678', '654987321V', '0116677889', 3),
+(7, 'doctor7@gmail.com', 'Dr. Emma Davis', 'pass789', '159753468V', '0117788990', 1),
+(8, 'doctor8@gmail.com', 'Dr. Robert Thomas', 'pass890', '357951468V', '0118899001', 2),
+(9, 'doctor9@gmail.com', 'Dr. Olivia Taylor', 'pass901', '753159846V', '0119900112', 3),
+(10, 'doctor10@gmail.com', 'Dr. William Anderson', 'pass012', '852963741V', '0110011223', 1);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patient`
+--
+
+DROP TABLE IF EXISTS `patient`;
+CREATE TABLE IF NOT EXISTS `patient` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `pemail` varchar(255) DEFAULT NULL,
+  `pname` varchar(255) DEFAULT NULL,
+  `ppassword` varchar(255) DEFAULT NULL,
+  `paddress` varchar(255) DEFAULT NULL,
+  `pnic` varchar(15) DEFAULT NULL,
+  `pdob` date DEFAULT NULL,
+  `ptel` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`pid`, `pemail`, `pname`, `ppassword`, `paddress`, `pnic`, `pdob`, `ptel`) VALUES
+(1, 'patient1@gmail.com', 'Alice Johnson', 'pass123', 'Colombo, Sri Lanka', '900123456111', '1990-05-15', '0711234567'),
+(2, 'patient2@gmail.com', 'Bob Smith', 'pass234', 'Kandy, Sri Lanka', '901234567111', '1985-08-22', '0722345678'),
+(3, 'patient3@gmail.com', 'Charlie Brown', 'pass345', 'Galle, Sri Lanka', '902345678111', '1992-12-10', '0733456789'),
+(4, 'patient4@gmail.com', 'David Miller', 'pass456', 'Jaffna, Sri Lanka', '903456789111', '1998-03-25', '0744567890'),
+(5, 'patient5@gmail.com', 'Emma Wilson', 'pass567', 'Negombo, Sri Lanka', '904567890111', '2001-07-19', '0755678901'),
+(6, 'patient6@gmail.com', 'Fiona Anderson', 'pass678', 'Batticaloa, Sri Lanka', '905678901111', '1995-09-30', '0766789012'),
+(7, 'patient7@gmail.com', 'George Thomas', 'pass789', 'Kurunegala, Sri Lanka', '906789012111', '1987-06-14', '0777890123'),
+(8, 'patient8@gmail.com', 'Hannah White', 'pass890', 'Anuradhapura, Sri Lanka', '907890123111', '1993-11-05', '0788901234'),
+(9, 'patient9@gmail.com', 'Ian Black', 'pass901', 'Trincomalee, Sri Lanka', '908901234111', '1999-04-18', '0799012345'),
+(10, 'patient10@gmail.com', 'Julia Martin', 'pass012', 'Matara, Sri Lanka', '909012345111', '2002-02-28', '0700123456');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+DROP TABLE IF EXISTS `schedule`;
+CREATE TABLE IF NOT EXISTS `schedule` (
+  `scheduleid` int(11) NOT NULL AUTO_INCREMENT,
+  `docid` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `scheduledate` date DEFAULT NULL,
+  `scheduletime` time DEFAULT NULL,
+  `nop` int(4) DEFAULT NULL,
+  PRIMARY KEY (`scheduleid`),
+  KEY `docid` (`docid`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`scheduleid`, `docid`, `title`, `scheduledate`, `scheduletime`, `nop`) VALUES
+(1, 1, 'General Consultation', '2025-03-15', '09:00:00', 10),
+(2, 1, 'Follow-up Checkup', '2025-03-15', '11:00:00', 10),
+(3, 2, 'Pediatric Consultation', '2025-03-16', '10:00:00', 8),
+(4, 3, 'Cardiology Checkup', '2025-03-17', '14:00:00', 5),
+(5, 4, 'Dental Checkup', '2025-03-18', '16:00:00', 6),
+(6, 5, 'Dermatology Session', '2025-03-19', '12:30:00', 7),
+(7, 6, 'ENT Consultation', '2025-03-20', '09:30:00', 10),
+(8, 7, 'Physiotherapy Session', '2025-03-21', '15:00:00', 6),
+(9, 8, 'Orthopedic Checkup', '2025-03-22', '13:00:00', 5),
+(10, 9, 'Mental Health Consultation', '2025-03-23', '10:00:00', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialties`
+--
+
+DROP TABLE IF EXISTS `specialties`;
+CREATE TABLE IF NOT EXISTS `specialties` (
+  `id` int(2) NOT NULL,
+  `sname` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `specialties`
+--
+
+INSERT INTO `specialties` (`id`, `sname`) VALUES
+(1, 'Accident and emergency medicine'),
+(2, 'Allergology'),
+(3, 'Anaesthetics'),
+(4, 'Biological hematology'),
+(5, 'Cardiology'),
+(6, 'Child psychiatry'),
+(7, 'Clinical biology'),
+(8, 'Clinical chemistry'),
+(9, 'Clinical neurophysiology'),
+(10, 'Clinical radiology'),
+(11, 'Dental, oral and maxillo-facial surgery'),
+(12, 'Dermato-venerology'),
+(13, 'Dermatology'),
+(14, 'Endocrinology'),
+(15, 'Gastro-enterologic surgery'),
+(16, 'Gastroenterology'),
+(17, 'General hematology'),
+(18, 'General Practice'),
+(19, 'General surgery'),
+(20, 'Geriatrics'),
+(21, 'Immunology'),
+(22, 'Infectious diseases'),
+(23, 'Internal medicine'),
+(24, 'Laboratory medicine'),
+(25, 'Maxillo-facial surgery'),
+(26, 'Microbiology'),
+(27, 'Nephrology'),
+(28, 'Neuro-psychiatry'),
+(29, 'Neurology'),
+(30, 'Neurosurgery'),
+(31, 'Nuclear medicine'),
+(32, 'Obstetrics and gynecology'),
+(33, 'Occupational medicine'),
+(34, 'Ophthalmology'),
+(35, 'Orthopaedics'),
+(36, 'Otorhinolaryngology'),
+(37, 'Paediatric surgery'),
+(38, 'Paediatrics'),
+(39, 'Pathology'),
+(40, 'Pharmacology'),
+(41, 'Physical medicine and rehabilitation'),
+(42, 'Plastic surgery'),
+(43, 'Podiatric Medicine'),
+(44, 'Podiatric Surgery'),
+(45, 'Psychiatry'),
+(46, 'Public health and Preventive Medicine'),
+(47, 'Radiology'),
+(48, 'Radiotherapy'),
+(49, 'Respiratory medicine'),
+(50, 'Rheumatology'),
+(51, 'Stomatology'),
+(52, 'Thoracic surgery'),
+(53, 'Tropical medicine'),
+(54, 'Urology'),
+(55, 'Vascular surgery'),
+(56, 'Venereology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `webuser`
+--
+
+DROP TABLE IF EXISTS `webuser`;
+CREATE TABLE IF NOT EXISTS `webuser` (
+  `email` varchar(255) NOT NULL,
+  `usertype` char(1) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `webuser`
+--
+
+INSERT INTO `webuser` (`email`, `usertype`) VALUES
+('admin@gmail.com', 'a'),
+('doctor@gmail.com', 'd'),
+('patient@gmail.com', 'p'),
+('emhashenudara@gmail.com', 'p');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

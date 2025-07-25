@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Essential meta tags -->
+<meta charset="UTF-8">  <!-- Defines the character encoding -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Ensures proper mobile rendering -->
+<title>CareTech - Your Health Is Our Priority</title> <!-- Page title shown in browser tab -->
+ <!-- External CSS and JS Dependencies -->
+<script src="https://cdn.tailwindcss.com"></script>  
+
+<!-- Google Fonts - Pacifico font for logo -->
+<link rel="preconnect" href="https://fonts.googleapis.com">  <!-- Preconnect to Google Fonts for faster loading -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+ <!-- Remix Icons - Icon library -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<!-- Add Google Translate API -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Tailwind CSS Custom Configuration -->
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#0284c7',           // Primary blue color used throughout the site
+secondary: '#10b981'                // Secondary green color for accents
+},
+borderRadius: {
+'none': '0px',               // Various border radius options
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'              // Special radius for buttons
+}
+}
+}
+}
+</script>
+
+<!-- Custom CSS Styles -->
+<style>
+    /* Fix for Remix Icons default content */
+:where([class^="ri-"])::before { content: "\f3c2"; }
+
+/* Active state styling for navigation links */
+.nav-link.active { color: #0284c7; }
+
+/* Hover animations for cards */
+.service-card:hover { transform: translateY(-10px); }
+.doctor-card:hover { transform: translateY(-10px); }
+/* Form input focus states */
+.appointment-form input:focus, .appointment-form select:focus, .appointment-form textarea:focus {
+border-color: #0284c7;
+outline: none;
+}
+
+/* Custom styles for language selector */
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.language-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+    border-radius: 8px;
+    right: 0;
+}
+
+.language-dropdown a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.language-dropdown a:hover {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.language-selector:hover .language-dropdown {
+    display: block;
+}
+/* Hide Google Translate Banner */
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+/* Ensure body starts from the top */
+body {
+    top: 0 !important;
+}
+
+/* Fix header position */
+nav {
+    top: 0 !important;
+    position: fixed !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+body {
+    top: 0 !important;
+}
+
+.goog-te-gadget {
+    font-family: inherit !important;
+    font-size: 0 !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+    margin: 0 !important;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+}
+
+.skiptranslate {
+    font-size: 0 !important;
+}
+
+
+#google_translate_element select {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+#google_translate_element select:focus {
+    outline: none;
+    border-color: #0284c7;
+}
+
+.goog-te-menu-value span {
+    display: none;
+}
+
+.vn-language-widget {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    background: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+</style>
+</head>
+<body class="bg-gray-50">          <!-- Light gray background for the entire page -->
+
+<!-- Translation Scripts -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'ar,de,es,fr,hi,it,ja,ko,nl,pt,ru,zh-CN,kn',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Function to change language using manual selector
+    function changeLanguage(lang) {
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event('change'));
+        }
+    }
+</script>
+
+<!-- Navigation Bar - Fixed at top -->
+<nav class="fixed w-full bg-white shadow-md z-50">
+<div class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+    <!-- Logo -->
+<div class="font-['Pacifico'] text-3xl text-primary">CareTech</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="#home" class="nav-link ">Home</a>
+<a href="#about" class="nav-link">About</a>
+<a href="#services" class="nav-link">Services</a>
+<a href="login.php" class="nav-link">Login</a>
+<a href="signup.php" class="nav-link">Register</a>
+<a href="#help" class="nav-link">Help</a>
+<a href="feedback.php" class="nav-link">Suggestions</a>
+<!-- Language Selector -->
+<div class="language-selector">
+    <button class="flex items-center space-x-2 text-gray-700 hover:text-primary">
+        <i class="ri-translate-2 text-xl"></i>
+        <span class="text-sm">Language</span>
+    </button>
+    <div class="language-dropdown">
+    <div id="google_translate_element"></div>
+    <a href="#" onclick="changeLanguage('en'); return false;">English</a>
+    <a href="#" onclick="changeLanguage('es'); return false;">Español</a>
+    <a href="#" onclick="changeLanguage('fr'); return false;">Français</a>
+    <a href="#" onclick="changeLanguage('de'); return false;">Deutsch</a>
+    <a href="#" onclick="changeLanguage('hi'); return false;">हिन्दी</a>
+    <a href="#" onclick="changeLanguage('ar'); return false;">العربية</a>
+    <a href="#" onclick="changeLanguage('zh-CN'); return false;">中文</a>
+    <a href="#" onclick="changeLanguage('ja'); return false;">日本語</a>
+    <a href="#" onclick="changeLanguage('ko'); return false;">한국어</a>
+    <a href="#" onclick="changeLanguage('ru'); return false;">Русский</a>
+    <a href="#" onclick="changeLanguage('pt'); return false;">Português</a>
+    <a href="#" onclick="changeLanguage('it'); return false;">Italiano</a>
+    <a href="#" onclick="changeLanguage('kn'); return false;">ಕನ್ನಡ</a> <!-- Added Kannada -->
+</div>
+</div>
+</div>
+
+<!-- Mobile Menu Button -->
+<div class="md:hidden flex items-center space-x-4">
+    <!-- Mobile Language Selector -->
+    <div class="mr-4">
+        <div id="google_translate_element_mobile"></div>
+    </div>
+    
+    <button class="w-10 h-10 flex items-center justify-center">
+        <i class="ri-menu-line text-2xl"></i>
+    </button>
+</div>
+</div>
+</div>
+</nav>
+
+<!-- Hero Section - Main landing area -->
+<section id="home" class="relative min-h-screen pt-20" style="background-image: url('https://public.readdy.ai/ai/img_res/dba01af439cf7bf11b4762eaf06b2afa.jpg'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-white/90 to-white/50"></div>
+<div class="container mx-auto px-6 py-32 relative">
+<div class="max-w-2xl">
+<h1 class="text-5xl font-bold mb-6 text-gray-900">Your Health Is Our Priority</h1>
+<p class="text-xl text-gray-700 mb-8">Experience top-notch healthcare with our dedicated team of experts. Our advanced facilities ensure accurate diagnoses and effective treatments tailored to your needs. We prioritize compassionate care, making sure you feel supported throughout your health journey. Your well-being is our main focus.</p>
+<div class="flex space-x-4">
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="relative h-[500px]">
+    <img src="https://public.readdy.ai/ai/img_res/64fb1974f136ef9803a6b56b15b82c48.jpg" alt="About Us" class="w-full h-full object-cover rounded-lg shadow-xl">
+    </div>
+    
+     <!-- About content -->
+    <div>
+    <h2 class="text-4xl font-bold mb-6">About CareTech</h2>
+    <p class="text-gray-600 mb-8">With over 25 years of excellence in healthcare, CareTech has been at the forefront of medical innovation and patient care. Our state-of-the-art facilities and dedicated team of healthcare professionals ensure that you receive the best possible care.</p>
+       <!-- Statistics Grid -->
+    <div class="grid grid-cols-3 gap-6 mb-8">
+    
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="text-3xl font-bold text-primary mb-2">25+</div>
+    <div class="text-gray-600">Years Experience</div>
+    </div>
+    
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="text-3xl font-bold text-primary mb-2">100+</div>
+    <div class="text-gray-600">Expert Doctors</div>
+    </div>
+    
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="text-3xl font-bold text-primary mb-2">50+</div>
+    <div class="text-gray-600">Departments</div>
+    </div>
+    </div>
+    <button class="bg-primary text-white px-8 py-3 !rounded-button hover:bg-primary/90" onclick="document.getElementById('aboutPage').classList.remove('hidden')">Learn More</button>
+    <div id="aboutPage" class="fixed inset-0 bg-white z-50 overflow-y-auto hidden">
+    <div class="container mx-auto px-6 py-8">
+    <div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-bold">About CareTech</h2>
+    <button class="text-gray-500 hover:text-gray-700" onclick="document.getElementById('aboutPage').classList.add('hidden')">
+    <i class="ri-close-line text-3xl"></i>
+    </button>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+    <div>
+    <img src="https://public.readdy.ai/ai/img_res/64fb1974f136ef9803a6b56b15b82c48.jpg" alt="About MediCare" class="w-full rounded-lg shadow-xl mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+    <i class="ri-user-heart-line text-primary text-2xl"></i>
+    </div>
+    <div class="text-3xl font-bold text-primary mb-2">120+</div>
+    <div class="text-gray-600">Doctors At Work</div>
+    </div>
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+    <i class="ri-group-line text-primary text-2xl"></i>
+    </div>
+    <div class="text-2xl font-bold text-primary mb-2">1040+</div>
+    <div class="text-gray-600">Happy Patients</div>
+    </div>
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+    <i class="ri-hospital-line text-primary text-2xl"></i>
+    </div>
+    <div class="text-3xl font-bold text-primary mb-2">500+</div>
+    <div class="text-gray-600">Bed Facility</div>
+    </div>
+    <div class="text-center p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
+    <i class="ri-building-2-line text-primary text-2xl"></i>
+    </div>
+    <div class="text-3xl font-bold text-primary mb-2">80+</div>
+    <div class="text-gray-600">Hospital Available</div>
+    </div>
+    </div>
+    </div>
+    <div class="space-y-8">
+    <div>
+    <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+    <p class="text-gray-600">At CareTech, our mission is to provide exceptional healthcare services that improve the quality of life for our patients and communities. We strive to deliver innovative medical solutions while maintaining the highest standards of patient care and professional excellence.</p>
+    </div>
+    <div>
+    <h3 class="text-2xl font-bold mb-4">Our Vision</h3>
+    <p class="text-gray-600">To be the leading healthcare provider known for excellence in patient care, medical innovation, and community wellness. We envision a future where quality healthcare is accessible to all, supported by cutting-edge technology and compassionate care.</p>
+    </div>
+    <div>
+    <h3 class="text-2xl font-bold mb-4">Our Values</h3>
+    <div class="grid grid-cols-2 gap-6">
+    <div class="p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+    <i class="ri-heart-pulse-line text-primary text-xl"></i>
+    </div>
+    <h4 class="font-bold mb-2">Excellence</h4>
+    <p class="text-gray-600">Committed to delivering the highest quality care</p>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+    <i class="ri-team-line text-primary text-xl"></i>
+    </div>
+    <h4 class="font-bold mb-2">Compassion</h4>
+    <p class="text-gray-600">Treating every patient with care and empathy</p>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+    <i class="ri-shield-check-line text-primary text-xl"></i>
+    </div>
+    <h4 class="font-bold mb-2">Integrity</h4>
+    <p class="text-gray-600">Maintaining highest ethical standards</p>
+    </div>
+    <div class="p-6 bg-white rounded-lg shadow-md">
+    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+    <i class="ri-flask-line text-primary text-xl"></i>
+    </div>
+    <h4 class="font-bold mb-2">Innovation</h4>
+    <p class="text-gray-600">Embracing advanced medical solutions</p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+<!-- Help Section -->
+<section id="help" class="py-20 bg-gray-100">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Help & FAQs</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Frequently asked questions and assistance for our patients.</p>
+        </div>
+
+        <!-- FAQ Placeholder -->
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-bold mb-4">Frequently Asked Questions</h3>
+            <ul class="space-y-4">
+                <li class="border-b pb-2">
+                    <h4 class="text-xl font-semibold">1. How can I schedule an appointment?</h4>
+                    <p class="text-gray-600">You can schedule an appointment by calling our front desk or through our online portal.</p>
+                </li>
+                <li class="border-b pb-2">
+                    <h4 class="text-xl font-semibold">2. What are the visiting hours?</h4>
+                    <p class="text-gray-600">We are open from 8 AM to 8 PM, Monday to Saturday.</p>
+                </li>
+                <li class="border-b pb-2">
+                    <h4 class="text-xl font-semibold">3. Do you accept insurance?</h4>
+                    <p class="text-gray-600">Yes, we accept a variety of insurance plans. Please contact us for more details.</p>
+                </li>
+            </ul>
+            <!-- View More FAQs Button -->
+            <div class="mt-6 text-center">
+                <a href="faq.html" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90">View More FAQs</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-20 bg-white">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4">Our Services</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">We offer a comprehensive range of medical services to meet all your healthcare needs.</p>
+</div>
+
+<!-- Services grid -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-heart-pulse-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">Cardiology</h3>
+<p class="text-gray-600 mb-4">Comprehensive heart care with advanced diagnostic and treatment options.</p>
+
+</div>
+
+<!--  Labratory Services grid -->
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-microscope-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">Laboratory Services</h3>
+<p class="text-gray-600 mb-4">State-of-the-art diagnostic testing and laboratory services.</p>
+
+</div>
+
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-mental-health-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">Neurology</h3>
+<p class="text-gray-600 mb-4">Expert care for neurological conditions and disorders.</p>
+
+</div>
+
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-capsule-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">Pharmacy</h3>
+<p class="text-gray-600 mb-4">24/7 pharmacy services with expert medication counseling.</p>
+
+</div>
+
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<i class="ri-surgical-mask-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-4">Surgery</h3>
+<p class="text-gray-600 mb-4">Advanced surgical procedures with minimally invasive options.</p>
+
+</div>
+
+<div class="service-card bg-white p-8 rounded-lg shadow-lg transition-all duration-300 relative">
+    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+        <i class="ri-empathize-line text-red-500 text-2xl"></i>
+    </div>
+    <h3 class="text-xl font-bold mb-4">Emergency Care</h3>
+    <p class="text-gray-600 mb-4">24/7 emergency services with rapid response teams.</p>
+
+    <!-- Emergency Contact Button -->
+    <a href="tel:+11234567890" class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition flex items-center justify-center">
+        🚨 Call Emergency
+    </a>
+
+    <!-- Live Wait Time -->
+    <p class="text-gray-500 mt-4 text-sm">
+        Current ER Wait Time: <span class="font-bold text-red-600">15 min</span>
+    </p>
+
+    <!-- Find Nearest ER -->
+    <a href="https://maps.google.com?q=nearest+emergency+hospital" target="_blank" class="text-blue-500 text-sm mt-2 inline-block hover:underline">
+        📍 Find Nearest ER
+    </a>
+</div>
+
+
+</div>
+</div>
+</section>
+
+
+
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-20 pb-6">
+<div class="container mx-auto px-6">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+<div>
+<div class="font-['Pacifico'] text-3xl text-white mb-6">CareTech</div>
+<p class="text-gray-400 mb-6">Providing world-class healthcare services with compassion and excellence.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-white"><i class="ri-facebook-fill"></i></a>
+<a href="#" class="text-gray-400 hover:text-white"><i class="ri-twitter-fill"></i></a>
+<a href="#" class="text-gray-400 hover:text-white"><i class="ri-linkedin-fill"></i></a>
+<a href="#" class="text-gray-400 hover:text-white"><i class="ri-instagram-fill"></i></a>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Quick Links</h3>
+<ul class="space-y-4">
+<li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
+<li><a href="#services" class="text-gray-400 hover:text-white">Our Services</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Our Services</h3>
+<ul class="space-y-4">
+<li><a class="text-gray-400 hover:text-white">Cardiology</a></li>
+<li><a  class="text-gray-400 hover:text-white">Neurology</a></li>
+<li><a class="text-gray-400 hover:text-white">Orthopedics</a></li>
+<li><a  class="text-gray-400 hover:text-white">Pediatrics</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-6">Contact Info</h3>
+<ul class="space-y-4 text-gray-400">
+<li class="flex items-start space-x-3">
+<i class="ri-map-pin-line mt-1"></i>
+<span>Caretech , Dharwad</span>
+</li>
+<li class="flex items-center space-x-3">
+<i class="ri-phone-line"></i>
+<span>8867016586</span>
+</li>
+<li class="flex items-center space-x-3">
+<i class="ri-mail-line"></i>
+<span>contact@caretech.com</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-6 text-center text-gray-400">
+<p>&copy; 2025 CareTech. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<!-- Mobile Language Widget -->
+<div class="vn-language-widget md:hidden" onclick="document.getElementById('mobileLangOptions').classList.toggle('hidden')">
+    <i class="ri-translate-2 text-primary text-xl"></i>
+</div>
+
+<div id="mobileLangOptions" class="fixed right-4 bottom-20 bg-white p-4 rounded-lg shadow-lg z-50 hidden md:hidden">
+    <div id="google_translate_element_mobile"></div>
+    <div class="mt-2 grid grid-cols-2 gap-2">
+        <a href="#" onclick="changeLanguage('en'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">English</a>
+        <a href="#" onclick="changeLanguage('es'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">Español</a>
+        <a href="#" onclick="changeLanguage('fr'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">Français</a>
+        <a href="#" onclick="changeLanguage('de'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">Deutsch</a>
+        <a href="#" onclick="changeLanguage('hi'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">हिन्दी</a>
+        <a href="#" onclick="changeLanguage('zh-CN'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">中文</a>
+        <a href="#" onclick="changeLanguage('kn'); return false;" class="text-sm px-2 py-1 rounded hover:bg-gray-100">ಕನ್ನಡ</a>
+    </div>
+</div>
+
+<!-- JavaScript for Functionality -->
+<script>
+    const mockReviews = [
+    {
+    id: 1,
+    name: "Elizabeth Anderson",
+    rating: 5,
+    date: "2025-02-20",
+    content: "Outstanding medical care and attention to detail. The staff was incredibly professional and made me feel comfortable throughout my entire visit. Dr. Wilson's expertise is truly remarkable.",
+    avatar: "https://public.readdy.ai/ai/img_res/0ad93195e0c0c77aea12effd2fff6b8f.jpg",
+    helpful: 24,
+    },
+    {
+    id: 2,
+    name: "Michael Richardson",
+    rating: 4,
+    date: "2025-02-18",
+    content: "Very satisfied with the service. The facilities are modern and clean. The only minor issue was the wait time, but the quality of care made up for it.",
+    avatar: "https://public.readdy.ai/ai/img_res/f21fb0eb7cee77998d9fe6ed495fd172.jpg",
+    helpful: 18,
+    },
+    {
+    id: 3,
+    name: "Sophia Chen",
+    rating: 5,
+    date: "2025-02-15",
+    content: "Dr. Rodriguez is amazing with children! My daughter actually looks forward to her check-ups now. The entire pediatric team is wonderful.",
+    avatar: "https://public.readdy.ai/ai/img_res/c50ea672d486a69ab0542837edee3517.jpg",

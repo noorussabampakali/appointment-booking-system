@@ -1,0 +1,14 @@
+{
+    "en": {
+        "welcome": "Welcome to Our Healthcare System",
+        "content": "We provide the best medical services for you.",
+        "appointment": "Book an Appointment",
+        "contact": "Contact Us"
+    },
+    "kn": {
+        "welcome": "ನಮ್ಮ ಆರೋಗ್ಯ ಸೇವಾ ವ್ಯವಸ್ಥೆಗೆ ಸ್ವಾಗತ",
+        "content": "ನಾವು ನಿಮಗಾಗಿ ಅತ್ಯುತ್ತಮ ವೈದ್ಯಕೀಯ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುತ್ತೇವೆ.",
+        "appointment": "ಭೇಟಿ ಬುಕ್ ಮಾಡಿ",
+        "contact": "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ"
+    }
+}

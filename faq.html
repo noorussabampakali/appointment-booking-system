@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital FAQs</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.faq-answer.active { max-height: 500px; transition: max-height 0.5s ease-in; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#0284c7',
+secondary: '#7c3aed'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="bg-white shadow-sm">
+<div class="container mx-auto px-4 py-6 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center text-primary text-3xl">
+<i class="ri-hospital-line"></i>
+</div>
+<h1 class="text-2xl font-['Pacifico'] text-primary">Caretech</h1>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-12">
+<div class="max-w-4xl mx-auto">
+<h1 class="text-4xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h1>
+<div class="space-y-8">
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+<div class="w-8 h-8 flex items-center justify-center text-primary">
+<i class="ri-calendar-line"></i>
+</div>
+Booking & Scheduling
+</h2>
+<div class="space-y-4" id="booking-faqs">
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+<div class="w-8 h-8 flex items-center justify-center text-green-600">
+<i class="ri-user-heart-line"></i>
+</div>
+Doctor & Specialization
+</h2>
+<div class="space-y-4" id="doctor-faqs">
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+<div class="w-8 h-8 flex items-center justify-center text-purple-600">
+<i class="ri-bank-card-line"></i>
+</div>
+Payment & Insurance
+</h2>
+<div class="space-y-4" id="payment-faqs">
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+<div class="w-8 h-8 flex items-center justify-center text-orange-600">
+<i class="ri-video-chat-line"></i>
+</div>
+Consultation Types
+</h2>
+<div class="space-y-4" id="consultation-faqs">
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+const faqData = {
+booking: [
+{
+question: "How do I book an appointment?",
+answer: "You can book an appointment through our website or mobile app. Select your preferred doctor, choose an available time slot, and confirm your booking. You'll receive a confirmation email and SMS."
+},
+{
+question: "Can I reschedule my appointment?",
+answer: "Yes, you can reschedule your appointment up to 24 hours before the scheduled time. Log in to your account, go to 'My Appointments', and click on the reschedule option."
+},
+{
+question: "What is the appointment cancellation policy?",
+answer: "Appointments can be cancelled up to 4 hours before the scheduled time for a full refund. Cancellations within 24 hours may be subject to a cancellation fee."
+},
+{
+question: "What information do I need to book an appointment?",
+answer: "You'll need to provide your basic personal information (name, contact details), medical history, current symptoms or concerns, and preferred appointment time. For new patients, we recommend registering an account first."
+},
+{
+question: "How far in advance can I book an appointment?",
+answer: "Regular appointments can be booked up to 15 days in advance. For specialist consultations, booking windows may vary. Emergency appointments are handled separately and can be booked for the same day."
+}
+],
+doctor: [
+{
+question: "How can I check doctor availability?",
+answer: "You can check doctor availability in real-time through our booking platform. Select your preferred doctor to view their schedule and available time slots."
+},
+{
+question: "How do I choose the right specialist?",
+answer: "Browse our list of specialists filtered by medical condition or specialty. Each doctor's profile includes their qualifications, experience, and patient reviews to help you make an informed decision."
+},
+{
+question: "Can I request a specific doctor?",
+answer: "Yes, you can request appointments with specific doctors. However, availability may vary. If your preferred doctor is unavailable, we can recommend other qualified specialists in the same field."
+},
+{
+question: "What are the doctors' qualifications?",
+answer: "All our doctors are fully licensed and certified in their respective specialties. You can view each doctor's qualifications, certifications, and years of experience on their profile page."
+}
+],
+payment: [
+{
+question: "What payment methods are accepted?",
+answer: "We accept credit/debit cards, net banking, UPI, and major digital wallets. All payments are securely processed through our payment gateway. Payments are made at the hospital reception desk, as the amount is pre-specified at the time of booking the doctor’s appointment.."
+},
+{
+question: "Are there any additional charges?",
+answer: "Standard consultation fees are clearly displayed during booking. Additional charges may apply for special procedures, tests, or medications. All charges will be communicated upfront."
+},
+{
+question: "Do you offer installment payment options?",
+answer: "Yes, for certain treatments and procedures, we offer flexible payment plans. Please contact our financial counseling team to discuss available options."
+}
+],
+consultation: [
+{
+question: "What types of consultations are available?",
+answer: "We offer in-person consultations, video consultations, and emergency consultations. Each type has specific booking procedures and requirements."
+},
+{
+question: "How do online consultations work?",
+answer: "Online consultations are conducted through our secure video platform. You'll receive a link before your appointment time. Ensure you have a stable internet connection and a quiet environment."
+},
+{
+question: "What should I prepare for my consultation?",
+answer: "Please have your medical history, current medications, recent test results, and a list of questions ready. For video consultations, test your device and internet connection beforehand."
+},
+{
+question: "How long do consultations typically last?",
+answer: "Initial consultations usually last 30-45 minutes, while follow-up appointments are typically 15-20 minutes. Duration may vary based on medical complexity and consultation type."
+},
+{
+question: "What happens if I experience technical issues during a video consultation?",
+answer: "Our technical support team is available during all video consultations. If issues persist, we can switch to a phone consultation or reschedule at no additional cost."
+}
+]
+};
+function createFaqElement(question, answer) {
+const div = document.createElement('div');
+div.className = 'border border-gray-200 rounded';
+div.innerHTML = `
+<button class="w-full flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors">
+<span class="font-medium text-gray-900">${question}</span>
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-add-line"></i>
+</div>
+</button>
+<div class="faq-answer px-4">
+<p class="pb-4 text-gray-600">${answer}</p>
+</div>
+`;
+return div;
+}
+function initializeFaqs() {
+Object.entries(faqData).forEach(([category, questions]) => {
+const container = document.getElementById(`${category}-faqs`);
+questions.forEach(({question, answer}) => {
+container.appendChild(createFaqElement(question, answer));
+});
+});
+document.querySelectorAll('.faq-answer').forEach(answer => {
+const button = answer.previousElementSibling;
+button.addEventListener('click', () => {
+const icon = button.querySelector('i');
+const isActive = answer.classList.contains('active');
+answer.classList.toggle('active');
+icon.className = isActive ? 'ri-add-line' : 'ri-subtract-line';
+});
+});
+}
+document.addEventListener('DOMContentLoaded', initializeFaqs);
+</script>
+</body>
+</html>
